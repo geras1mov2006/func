@@ -1,0 +1,32 @@
+def split_words(text: str) -> list[str]:
+    return (
+        text.lower()
+        .replace(",", " ")
+        .replace(".", " ")
+        .replace("!", " ")
+        .replace("?", " ")
+        .replace(";", " ")
+        .replace(":", " ")
+        .replace("-", " ")
+        .replace("—", " ")
+        .replace('"', " ")
+        .replace("'", " ")
+        .replace("«", " ")
+        .replace("»", " ")
+        .replace("(", " ")
+        .replace(")", " ")
+        .split()
+    )
+
+
+def count_word_frequencies(words: list[str]) -> dict[str, int]:
+    return dict(zip(words, map(words.count, words)))
+
+
+def top_word(freq: dict[str, int]) -> str | None:
+    return max(freq, key=freq.get, default=None)
+
+
+if __name__ == "__main__":
+    print(count_word_frequencies(split_words("Привет, мир! Привет, Python. Мир прекрасен, мир!")))
+    print(top_word(count_word_frequencies(split_words("Привет, мир! Привет, Python. Мир прекрасен, мир!"))))
