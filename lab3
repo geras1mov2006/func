@@ -3,9 +3,9 @@ from enum import Enum, auto
 
 
 class LoadState(Enum):
-    LOADING = auto()
-    SUCCESS = auto()
-    ERROR = auto()
+    LOADING = 1
+    SUCCESS = 2
+    ERROR = 3
 
 
 @dataclass(frozen=True)
