@@ -1,34 +1,39 @@
 from functools import partial
 
+
 def matches(key, value, item):
     return key in item and item[key] == value
 
 
-filter_by = lambda key: lambda value: lambda items: list(
-    filter(partial(matches, key, value), items)
-)
+def filter_by(key):
+    return lambda value: lambda items: list(
+        filter(partial(matches, key, value), items)
+    )
 
 
 def apply_filter(key, value, items):
     return filter_by(key)(value)(items)
 
 
-filter_by_category = partial(apply_filter, "category")
+def filter_by_category(value, items):
+    return partial(apply_filter, "category")(value, items)
 
 
 def greater_than(threshold):
     return lambda x: x > threshold
 
 
-if __name__ == "__main__":
-    products = [
+def main(products, numbers):
+    print(filter_by("name")("Chair")(products))
+    print(filter_by_category("electronics", products))
+    print(list(filter(greater_than(10), numbers)))
+
+
+main(
+    [
         {"name": "Keyboard", "category": "electronics"},
         {"name": "Chair", "category": "furniture"},
         {"name": "Mouse", "category": "electronics"},
-    ]
-
-    print(filter_by("name")("Chair")(products))
-    print(filter_by_category("electronics", products))
-
-    numbers = [18, 4, 25, 10, 7]
-    print(list(filter(greater_than(10), numbers)))
+    ],
+    [18, 4, 25, 10, 7],
+)
