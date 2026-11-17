@@ -23,10 +23,14 @@ def greater_than(threshold):
     return lambda x: x > threshold
 
 
+def numbers_above(threshold, numbers):
+    return filter(greater_than(threshold), numbers)
+
+
 def main(products, numbers):
     print(filter_by("name")("Chair")(products))
     print(filter_by_category("electronics", products))
-    print(list(filter(greater_than(10), numbers)))
+    print(list(numbers_above(10, numbers)))
 
 
 main(
