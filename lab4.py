@@ -1,3 +1,4 @@
+
 from functools import partial
 
 
@@ -24,13 +25,21 @@ def greater_than(threshold):
 
 
 def numbers_above(threshold, numbers):
-    return filter(greater_than(threshold), numbers)
+    def calculate():
+        return list(filter(greater_than(threshold), numbers))
+
+    return calculate
+
+
+def show_result(calculate):
+    print("Фильтр подготовлен. Числа ещё не проверялись.")
+    print(calculate())
 
 
 def main(products, numbers):
     print(filter_by("name")("Chair")(products))
     print(filter_by_category("electronics", products))
-    print(list(numbers_above(10, numbers)))
+    show_result(numbers_above(10, numbers))
 
 
 main(
